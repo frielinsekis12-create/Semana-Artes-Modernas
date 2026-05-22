@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana de Arte Moderna — 1922</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #1d1712;
+      color: #2b2118;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.08), transparent 18%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.06), transparent 20%),
+        linear-gradient(rgba(40,28,18,.75), rgba(40,28,18,.85)),
+        url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      z-index: -4;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      z-index: 1000;
+      background-image: repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.2) 0 1px, transparent 1px 3px);
+      mix-blend-mode: overlay;
+    }
+
+    header {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: #efe1bd;
+      position: relative;
+    }
+
+    .hero {
+      width: min(980px, 94vw);
+      padding: 70px 45px;
+      border: 2px solid rgba(239,225,189,.65);
+      background: rgba(24,18,13,.68);
+      box-shadow: 0 0 80px rgba(0,0,0,.65), inset 0 0 70px rgba(239,225,189,.05);
+      position: relative;
+      animation: cinema 1.4s ease both;
+    }
+
+    .hero::before, .hero::after {
+      content: "✦";
+      position: absolute;
+      color: #c9a66b;
+      font-size: 2rem;
+      top: 22px;
+    }
+    .hero::before { left: 28px; }
+    .hero::after { right: 28px; }
+
+    .ano {
+      letter-spacing: 12px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #c9a66b;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      line-height: .95;
+      text-transform: uppercase;
+      font-weight: normal;
+      text-shadow: 0 6px 22px rgba(0,0,0,.8);
+    }
+
+    .hero p {
+      margin: 28px auto 35px;
+      max-width: 760px;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #f4e7c6;
+    }
+
+    .botao {
+      display: inline-block;
+      color: #2b2118;
+      background: #efe1bd;
+      border: 1px solid #9b7b4d;
+      padding: 14px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.35);
+      transition: .3s;
+    }
+    .botao:hover { transform: translateY(-4px); background: #d5bd87; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(22,16,11,.94);
+      border-bottom: 1px solid rgba(239,225,189,.24);
+      text-align: center;
+      padding: 13px 8px;
+      backdrop-filter: blur(8px);
+    }
+    nav a {
+      color: #efe1bd;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: .92rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    nav a:hover { color: #c9a66b; }
+
+    main {
+      width: min(1120px, 94vw);
+      margin: auto;
+      padding-bottom: 70px;
+    }
+
+    section {
+      margin: 70px 0;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: 1s ease;
+    }
+    section.visivel { opacity: 1; transform: translateY(0); }
+
+    .carta {
+      background: #efe1bd;
+      padding: clamp(28px, 5vw, 60px);
+      border-radius: 3px;
+      border: 1px solid #9b7b4d;
+      box-shadow: 0 25px 70px rgba(0,0,0,.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(90,60,30,.08) 1px, transparent 1px),
+        linear-gradient(rgba(90,60,30,.06) 1px, transparent 1px),
+        radial-gradient(circle at 15% 20%, rgba(80,45,20,.12), transparent 18%),
+        radial-gradient(circle at 85% 70%, rgba(80,45,20,.10), transparent 20%);
+      background-size: 36px 36px, 36px 36px, auto, auto;
+      pointer-events: none;
+    }
+
+    .carta > * { position: relative; z-index: 2; }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      font-weight: normal;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      color: #3a2a1d;
+      border-bottom: 1px solid #9b7b4d;
+      padding-bottom: 14px;
+    }
+
+    p, li {
+      font-size: 1.17rem;
+      line-height: 1.85;
+    }
+    ul { margin-left: 25px; }
+
+    .subtitulo {
+      font-style: italic;
+      color: #6d5135;
+      margin-bottom: 22px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: rgba(255,248,220,.65);
+      border: 1px solid #9b7b4d;
+      padding: 24px;
+      min-height: 140px;
+      box-shadow: 8px 8px 0 rgba(60,39,21,.2);
+      transition: .35s;
+    }
+    .card:hover { transform: translateY(-8px) rotate(-1deg); }
+
+    .carimbo {
+      display: inline-block;
+      border: 3px double #6d2f1d;
+      color: #6d2f1d;
+      padding: 10px 18px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transform: rotate(-5deg);
+      margin-top: 24px;
+      font-weight: bold;
+      opacity: .85;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+      margin-top: 30px;
+    }
+    .timeline-item {
+      background: rgba(255,248,220,.72);
+      border-left: 6px solid #6d2f1d;
+      padding: 20px;
+      box-shadow: 8px 8px 0 rgba(60,39,21,.14);
+    }
+    .timeline-item strong { font-size: 1.45rem; color: #6d2f1d; }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .foto {
+      min-height: 300px;
+      background: #d7c08b;
+      border: 10px solid #f6edd0;
+      outline: 1px solid #7c5c34;
+      box-shadow: 0 18px 40px rgba(0,0,0,.36);
+      padding: 14px;
+      transform: rotate(-2deg);
+      transition: .35s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      filter: sepia(.65) contrast(.95) grayscale(.2);
+    }
+    .foto:nth-child(even) { transform: rotate(2deg); }
+    .foto:hover { transform: rotate(0) scale(1.04); filter: sepia(.85) contrast(1.05); }
+
+    .foto .placeholder {
+      flex: 1;
+      border: 1px dashed #7c5c34;
+      display: grid;
+      place-items: center;
+      color: #6d5135;
+      text-align: center;
+      padding: 18px;
+      background: rgba(255,248,220,.45);
+    }
+
+    .foto img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid #7c5c34;
+      margin-bottom: 12px;
+    }
+
+    .legenda {
+      text-align: center;
+      font-size: 1rem;
+      color: #3a2a1d;
+      font-style: italic;
+      margin-top: 12px;
+    }
+
+    .video-box {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .retrato-falante {
+      width: 240px;
+      height: 320px;
+      margin: auto;
+      background: #c9b080;
+      border: 12px solid #f6edd0;
+      outline: 1px solid #7c5c34;
+      box-shadow: 0 20px 45px rgba(0,0,0,.42);
+      position: relative;
+      filter: sepia(.85) grayscale(.25);
+      overflow: hidden;
+    }
+
+    .retrato-falante::before {
+      content: "Cole aqui o vídeo/foto do Oswald";
+      position: absolute;
+      inset: 20px;
+      border: 1px dashed #7c5c34;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #6d5135;
+      padding: 18px;
+    }
+
+    .boca {
+      position: absolute;
+      width: 50px;
+      height: 7px;
+      background: #2b2118;
+      border-radius: 50%;
+      left: 95px;
+      top: 185px;
+      animation: falar .28s infinite alternate;
+      opacity: .85;
+    }
+
+    .destaque {
+      margin: 28px 0 0;
+      padding: 26px;
+      border: 2px dashed #6d2f1d;
+      color: #6d2f1d;
+      font-size: 1.55rem;
+      text-align: center;
+      font-style: italic;
+      background: rgba(255,248,220,.5);
+    }
+
+    .quiz-box button {
+      display: block;
+      width: 100%;
+      margin: 12px 0;
+      padding: 14px;
+      border: 1px solid #7c5c34;
+      background: #d7c08b;
+      color: #2b2118;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: .25s;
+    }
+    .quiz-box button:hover { background: #6d5135; color: #efe1bd; transform: translateX(8px); }
+    #resultado { margin-top: 20px; font-weight: bold; font-size: 1.2rem; }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #efe1bd;
+      border-top: 1px solid rgba(239,225,189,.24);
+      background: rgba(22,16,11,.88);
+    }
+
+    @keyframes cinema {
+      from { opacity: 0; transform: scale(1.08); filter: blur(10px); }
+      to { opacity: 1; transform: scale(1); filter: blur(0); }
+    }
+    @keyframes falar {
+      from { height: 6px; transform: scaleX(.8); }
+      to { height: 28px; transform: scaleX(1.15); }
+    }
+
+    @media (max-width: 800px) {
+      nav a { display: inline-block; margin: 6px; }
+      .video-box { grid-template-columns: 1fr; }
+      .hero { padding: 55px 25px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header>
+    <div class="hero">
+      <div class="ano">São Paulo • 1922</div>
+      <h1>Semana de Arte Moderna</h1>
+      <p>Uma apresentação em estilo de cartas antigas, fotografias de época e manuscritos sobre Oswald de Andrade e o Modernismo brasileiro.</p>
+      <a href="#inicio" class="botao">Abrir dossiê</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#inicio">Dossiê</a>
+    <a href="#oswald">Oswald</a>
+    <a href="#galeria">Arquivo</a>
+    <a href="#video">Retrato falante</a>
+    <a href="#quiz">Quiz</a>
+  </nav>
+
+  <main>
+    <section id="inicio">
+      <div class="carta">
+        <h2>O que foi a Semana de 1922?</h2>
+        <p class="subtitulo">Documento de apresentação</p>
+        <p>A Semana de Arte Moderna aconteceu no Teatro Municipal de São Paulo, em 1922. O evento reuniu artistas, escritores e músicos que queriam renovar a arte brasileira, rompendo com modelos antigos e valorizando uma identidade nacional.</p>
+        <div class="cards">
+          <div class="card">Teatro Municipal de São Paulo como palco do evento.</div>
+          <div class="card">Marco inicial do Modernismo no Brasil.</div>
+          <div class="card">Busca por liberdade artística e linguagem brasileira.</div>
+        </div>
+        <div class="carimbo">Arquivo modernista</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="carta">
+        <h2>Objetivos do movimento</h2>
+        <ul>
+          <li>Romper com o academicismo e com os padrões tradicionais.</li>
+          <li>Construir uma arte ligada ao Brasil real.</li>
+          <li>Valorizar a linguagem livre, direta e moderna.</li>
+          <li>Trazer humor, crítica social e inovação para a cultura.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="oswald">
+      <div class="carta">
+        <h2>Oswald de Andrade</h2>
+        <p>Oswald de Andrade foi escritor, poeta e dramaturgo. Ele participou da Semana de Arte Moderna e ficou conhecido pela linguagem irreverente, crítica e inovadora.</p>
+        <div class="timeline">
+          <div class="timeline-item"><strong>1890</strong> — Nasce Oswald de Andrade.</div>
+          <div class="timeline-item"><strong>1922</strong> — Participa da Semana de Arte Moderna.</div>
+          <div class="timeline-item"><strong>1928</strong> — Publica o Manifesto Antropófago.</div>
+          <div class="timeline-item"><strong>1954</strong> — Morre, deixando grande legado literário.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <div class="carta">
+        <h2>Arquivo fotográfico</h2>
+        <p class="subtitulo">Substitua os cartões por imagens reais usando a tag &lt;img&gt;.</p>
+        <div class="galeria">
+          <div class="foto">
+            <div class="placeholder">Coloque aqui<br>oswald.jpg</div>
+            <div class="legenda">Oswald de Andrade</div>
+          </div>
+          <div class="foto">
+            <div class="placeholder">Coloque aqui<br>Teatro Municipal.jpg</div>
+            <div class="legenda">Teatro Municipal</div>
+          </div>
+          <div class="foto">
+            <div class="placeholder">Coloque aqui<br>anita.jpg</div>
+            <div class="legenda">Anita Malfatti</div>
+          </div>
+          <div class="foto">
+            <div class="placeholder">Coloque aqui<br>Tarsila do Amaral.jpg</div>
+            <div class="legenda">Tarsila do Amaral</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="carta">
+        <h2>Poética, humor e ironia</h2>
+        <p>A escrita de Oswald era marcada por frases curtas, crítica social, humor e quebra de regras. Ele criticava a elite brasileira e a imitação exagerada da cultura europeia.</p>
+        <div class="destaque">“Tupi or not Tupi, that is the question.”</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="carta">
+        <h2>Antropofagia cultural</h2>
+        <p>A antropofagia cultural defendia que o Brasil deveria “devorar” influências estrangeiras e transformá-las em algo novo, original e brasileiro.</p>
+        <div class="cards">
+          <div class="card">Absorver influências estrangeiras.</div>
+          <div class="card">Transformar ideias em arte brasileira.</div>
+          <div class="card">Criar uma identidade nacional original.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="carta">
+        <h2>Retrato falante</h2>
+        <div class="video-box">
+          <div class="retrato-falante"><div class="boca"></div></div>
+          <div>
+            <p><strong>Ideia para apresentação:</strong> coloque aqui o vídeo criado no D-ID, HeyGen ou CapCut com a foto de Oswald falando.</p>
+            <p>Fala sugerida: “Olá, eu sou Oswald de Andrade. Participei da Semana de Arte Moderna de 1922 e defendi uma arte brasileira, livre e original.”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="carta quiz-box">
+        <h2>Quiz final</h2>
+        <p><strong>Quem criou o Manifesto Antropófago?</strong></p>
+        <button onclick="responder(false)">Mário de Andrade</button>
+        <button onclick="responder(true)">Oswald de Andrade</button>
+        <button onclick="responder(false)">Monteiro Lobato</button>
+        <p id="resultado"></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="carta">
+        <h2>Conclusão</h2>
+        <p>A Semana de Arte Moderna foi um marco na cultura brasileira. Oswald de Andrade se destacou por sua ousadia, humor, crítica social e defesa de uma arte com identidade nacional.</p>
+        <div class="carimbo">Fim do dossiê</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Trabalho escolar — Grupo 04</p>
+  </footer>
+
+  <script>
+    const secoes = document.querySelectorAll('section');
+    function mostrarSecoes() {
+      const alturaTela = window.innerHeight * 0.84;
+      secoes.forEach(secao => {
+        const topo = secao.getBoundingClientRect().top;
+        if (topo < alturaTela) secao.classList.add('visivel');
+      });
+    }
+    window.addEventListener('scroll', mostrarSecoes);
+    mostrarSecoes();
+
+    function responder(correta) {
+      const resultado = document.getElementById('resultado');
+      if (correta) {
+        resultado.textContent = 'Correto. O Manifesto Antropófago foi criado por Oswald de Andrade.';
+        resultado.style.color = '#315c35';
+      } else {
+        resultado.textContent = 'Resposta incorreta. A resposta certa é Oswald de Andrade.';
+        resultado.style.color = '#6d2f1d';
+      }
+    }
+  </script>
+</body>
+</html>
